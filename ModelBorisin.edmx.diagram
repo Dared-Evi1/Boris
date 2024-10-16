@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="67b9cab4aec342d89e7f387521f0352f" Name="Diagram1">
+        <EntityTypeShape EntityType="BorisinAutoserviceModel.Client" Width="1.5" PointX="3" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BorisinAutoserviceModel.ClientService" Width="1.5" PointX="5.25" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BorisinAutoserviceModel.DocumentByService" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BorisinAutoserviceModel.Gender" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BorisinAutoserviceModel.Manufacturer" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BorisinAutoserviceModel.Product" Width="1.5" PointX="3" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BorisinAutoserviceModel.ProductPhoto" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="BorisinAutoserviceModel.ProductSale" Width="1.5" PointX="5.25" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BorisinAutoserviceModel.Service" Width="1.5" PointX="3" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BorisinAutoserviceModel.ServicePhoto" Width="1.5" PointX="5.25" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BorisinAutoserviceModel.Tag" Width="1.5" PointX="5.25" PointY="11.75" IsExpanded="true" />
+        <AssociationConnector Association="BorisinAutoserviceModel.FK_Client_Gender" ManuallyRouted="false" />
+        <AssociationConnector Association="BorisinAutoserviceModel.FK_ClientService_Client" ManuallyRouted="false" />
+        <AssociationConnector Association="BorisinAutoserviceModel.FK_ClientService_Service" ManuallyRouted="false" />
+        <AssociationConnector Association="BorisinAutoserviceModel.FK_Product_Manufacturer" ManuallyRouted="false" />
+        <AssociationConnector Association="BorisinAutoserviceModel.FK_ProductPhoto_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="BorisinAutoserviceModel.FK_ProductSale_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="BorisinAutoserviceModel.FK_ServicePhoto_Service" ManuallyRouted="false" />
+        <AssociationConnector Association="BorisinAutoserviceModel.AttachedProduct" ManuallyRouted="false" />
+        <AssociationConnector Association="BorisinAutoserviceModel.TagOfClient" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
