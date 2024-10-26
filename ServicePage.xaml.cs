@@ -20,6 +20,7 @@ namespace Borisin_автосервис
     /// </summary>
     public partial class ServicePage : Page
     {
+
         public ServicePage()
         {
             InitializeComponent();
@@ -33,33 +34,33 @@ namespace Borisin_автосервис
             var currentServices = BorisinAutoserviceEntities.GetContext().Service.ToList();
             if (ComboType.SelectedIndex == 0)
             {
-                currentServices = currentServices.Where(p => (Convert.ToDouble(p.Discount) >= 0 && Convert.ToDouble(p.Discount) <= 1)).ToList();
+                currentServices = currentServices.Where(p => (p.DiscountInt >= 0 && p.DiscountInt <= 100)).ToList();
             }
             if (ComboType.SelectedIndex == 1)
             {
-                currentServices = currentServices.Where(p => (Convert.ToDouble(p.Discount) >= 0 && Convert.ToDouble(p.Discount) < 0.05)).ToList();
+                currentServices = currentServices.Where(p => (p.DiscountInt >= 0 && p.DiscountInt < 5)).ToList();
             }
             if (ComboType.SelectedIndex == 2)
             {
-                currentServices = currentServices.Where(p => (Convert.ToDouble(p.Discount) >= 0.05 && Convert.ToDouble(p.Discount) < 0.15)).ToList();
+                currentServices = currentServices.Where(p => (p.DiscountInt >= 5 && p.DiscountInt < 15)).ToList();
             }
             if (ComboType.SelectedIndex == 3)
             {
-                currentServices = currentServices.Where(p => (Convert.ToDouble(p.Discount) >= 0.15 && Convert.ToDouble(p.Discount) < 0.30)).ToList();
+                currentServices = currentServices.Where(p => (p.DiscountInt >= 15 && p.DiscountInt < 30)).ToList();
             }
             if (ComboType.SelectedIndex == 4)
             {
-                currentServices = currentServices.Where(p => (Convert.ToDouble(p.Discount) >= 0.30 && Convert.ToDouble(p.Discount) < 0.70)).ToList();
+                currentServices = currentServices.Where(p => (p.DiscountInt >= 30 && p.DiscountInt < 70)).ToList();
             }
             if (ComboType.SelectedIndex == 5)
             {
-                currentServices = currentServices.Where(p => (Convert.ToDouble(p.Discount) >= 0.70 && Convert.ToDouble(p.Discount) < 1)).ToList();
+                currentServices = currentServices.Where(p => (p.DiscountInt >= 70 && p.DiscountInt < 1)).ToList();
             }
             currentServices = currentServices.Where(p => p.Title.ToLower().Contains(TBoxSearch.Text.ToLower())).ToList();
             ServiceListView.ItemsSource = currentServices.ToList();
             if (RButtonDown.IsChecked.Value)
             {
-                ServiceListView.ItemsSource= currentServices.OrderByDescending(p => p.Cost).ToList();
+                ServiceListView.ItemsSource = currentServices.OrderByDescending(p => p.Cost).ToList();
             }
             if (RButtonUp.IsChecked.Value)
             {
@@ -113,6 +114,31 @@ namespace Borisin_автосервис
             {
                 BorisinAutoserviceEntities.GetContext().ChangeTracker.Entries().ToList().ForEach(p => p.Reload());
                 ServiceListView.ItemsSource = BorisinAutoserviceEntities.GetContext().Service.ToList();
+            }
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            var currentService = (sender as Button).DataContext as Service;
+            var currentClientServices = BorisinAutoserviceEntities.GetContext().ClientService.ToList();
+            currentClientServices = currentClientServices.Where(p => p.ServiceID == currentService.ID).ToList();
+            if (currentClientServices.Count != 0)
+                MessageBox.Show("Невозможно выполнить удаление, так как существует записи на эту услугу");
+            else
+            {
+                if (MessageBox.Show("Вы точно хотите выполнить удаление?", "Внимание!", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        BorisinAutoserviceEntities.GetContext().Service.Remove(currentService);
+                        BorisinAutoserviceEntities.GetContext().SaveChanges();
+                        UpdateSerices();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message.ToString());
+                    }
+                }
             }
         }
     }

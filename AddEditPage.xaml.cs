@@ -38,12 +38,11 @@ namespace Borisin_автосервис
                 errors.AppendLine("Укажите название услуги");
             if (_currentServise.Cost == 0)
                 errors.AppendLine("Укажите стоимость услуги");
-            if (_currentServise.Discount == null)
+            if (_currentServise.DiscountInt < 0)
                 errors.AppendLine("Укажите скидку");
-            if (_currentServise.Discount < 0)
+            if (_currentServise.DiscountInt >= 100)
                 errors.AppendLine("Укажите скидку");
-            if (_currentServise.Discount > 1)
-                errors.AppendLine("Укажите скидку");
+            
             if (string.IsNullOrWhiteSpace(_currentServise.Duration))
                 errors.AppendLine("Укажите длительность услуги");
 
