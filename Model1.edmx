@@ -95,10 +95,10 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="MainImagePath" Type="nvarchar" MaxLength="1000" />
-          <Property Name="Duration" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Duration" Type="int" Nullable="false" />
           <Property Name="Cost" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Discount" Type="float" />
           <Property Name="Description" Type="nvarchar(max)" />
@@ -419,10 +419,10 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="MainImagePath" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="Duration" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Duration" Type="Int32" Nullable="false" />
           <Property Name="Cost" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="Discount" Type="Double" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -539,7 +539,7 @@
           <End Role="Client" Type="Self.Client" Multiplicity="*" />
           <End Role="Tag" Type="Self.Tag" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="BorisinAutoserviceEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="BorisinAutoserviceEntities2" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Client" EntityType="Self.Client" />
           <EntitySet Name="ClientService" EntityType="Self.ClientService" />
           <EntitySet Name="DocumentByService" EntityType="Self.DocumentByService" />
@@ -593,7 +593,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище BorisinAutoserviceModelContainer" CdmEntityContainer="BorisinAutoserviceEntities">
+        <EntityContainerMapping StorageEntityContainer="Хранилище BorisinAutoserviceModelContainer" CdmEntityContainer="BorisinAutoserviceEntities2">
           <EntitySetMapping Name="Client">
             <EntityTypeMapping TypeName="BorisinAutoserviceModel.Client">
               <MappingFragment StoreEntitySet="Client">

@@ -13,20 +13,20 @@ namespace Borisin_автосервис
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class BorisinAutoserviceEntities : DbContext
+    public partial class BorisinAutoserviceEntities2 : DbContext
     {
-        public static BorisinAutoserviceEntities _context;
-        public static BorisinAutoserviceEntities GetContext()
+        public BorisinAutoserviceEntities2()
+            : base("name=BorisinAutoserviceEntities2")
         {
-            if(_context == null)
-                _context = new BorisinAutoserviceEntities();
+        }
+        public static BorisinAutoserviceEntities2 _context;
+        public static BorisinAutoserviceEntities2 GetContext()
+        {
+            if (_context == null)
+                _context = new BorisinAutoserviceEntities2();
             return _context;
         }
-        public BorisinAutoserviceEntities()
-            : base("name=BorisinAutoserviceEntities")
-        {
-        }
-    
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();

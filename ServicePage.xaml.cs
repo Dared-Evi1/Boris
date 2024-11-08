@@ -32,14 +32,14 @@ namespace Borisin_автосервис
         public ServicePage()
         {
             InitializeComponent();
-            var currentServices = BorisinAutoserviceEntities.GetContext().Service.ToList();
+            var currentServices = BorisinAutoserviceEntities2.GetContext().Service.ToList();
             ServiceListView.ItemsSource = currentServices;
             ComboType.SelectedIndex = 0;
             UpdateSerices();
         }
         private void UpdateSerices()
         {
-            var currentServices = BorisinAutoserviceEntities.GetContext().Service.ToList();
+            var currentServices = BorisinAutoserviceEntities2.GetContext().Service.ToList();
             if (ComboType.SelectedIndex == 0)
             {
                 currentServices = currentServices.Where(p => (p.DiscountInt >= 0 && p.DiscountInt <= 100)).ToList();
@@ -123,8 +123,8 @@ namespace Borisin_автосервис
         {
             if (Visibility == Visibility.Visible)
             {
-                BorisinAutoserviceEntities.GetContext().ChangeTracker.Entries().ToList().ForEach(p => p.Reload());
-                ServiceListView.ItemsSource = BorisinAutoserviceEntities.GetContext().Service.ToList();
+                BorisinAutoserviceEntities2.GetContext().ChangeTracker.Entries().ToList().ForEach(p => p.Reload());
+                ServiceListView.ItemsSource = BorisinAutoserviceEntities2.GetContext().Service.ToList();
                 UpdateSerices() ;
             }
         }
@@ -132,7 +132,7 @@ namespace Borisin_автосервис
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             var currentService = (sender as Button).DataContext as Service;
-            var currentClientServices = BorisinAutoserviceEntities.GetContext().ClientService.ToList();
+            var currentClientServices = BorisinAutoserviceEntities2.GetContext().ClientService.ToList();
             currentClientServices = currentClientServices.Where(p => p.ServiceID == currentService.ID).ToList();
             if (currentClientServices.Count != 0)
                 MessageBox.Show("Невозможно выполнить удаление, так как существует записи на эту услугу");
@@ -142,8 +142,8 @@ namespace Borisin_автосервис
                 {
                     try
                     {
-                        BorisinAutoserviceEntities.GetContext().Service.Remove(currentService);
-                        BorisinAutoserviceEntities.GetContext().SaveChanges();
+                        BorisinAutoserviceEntities2.GetContext().Service.Remove(currentService);
+                        BorisinAutoserviceEntities2.GetContext().SaveChanges();
                         UpdateSerices();
                     }
                     catch (Exception ex)
@@ -247,6 +247,11 @@ namespace Borisin_автосервис
         private void PageListBox_MouseUp(object sender, MouseButtonEventArgs e)
         {
             ChangePage(0, Convert.ToInt32(PageListBox.SelectedItem.ToString())-1);
+        }
+
+        private void SignUpButon_Click(object sender, RoutedEventArgs e)
+        {
+            Manager.MainFrame.Navigate(new SignUpPage((sender as Button).DataContext as Service));
         }
     }
 }

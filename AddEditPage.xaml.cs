@@ -36,33 +36,64 @@ namespace Borisin_автосервис
             StringBuilder errors = new StringBuilder();
             if (string.IsNullOrWhiteSpace(_currentServise.Title))
                 errors.AppendLine("Укажите название услуги");
+
             if (_currentServise.Cost == 0)
                 errors.AppendLine("Укажите стоимость услуги");
+
             if (_currentServise.DiscountInt < 0)
                 errors.AppendLine("Укажите скидку");
+
             if (_currentServise.DiscountInt >= 100)
                 errors.AppendLine("Укажите скидку");
-            
-            if (string.IsNullOrWhiteSpace(_currentServise.Duration))
+
+            if (_currentServise.Duration <= 0)
                 errors.AppendLine("Укажите длительность услуги");
 
-            if(errors.Length > 0)
+            if (_currentServise.Duration >240)
+                errors.AppendLine("длительность не может быть больше 240 минут");
+
+
+            if (errors.Length > 0)
             {
                 MessageBox.Show(errors.ToString());
                 return;
             }
-            if (_currentServise.ID == 0)
-                BorisinAutoserviceEntities.GetContext().Service.Add(_currentServise);
-            try
+
+            var allServices = BorisinAutoserviceEntities2.GetContext().Service.ToList();
+            allServices = allServices.Where(p => p.Title == _currentServise.Title).ToList();
+
+            if (allServices.Count == 0)
             {
-                BorisinAutoserviceEntities.GetContext().SaveChanges();
-                MessageBox.Show("информация сохранена");
-                Manager.MainFrame.GoBack();
+
+                if (_currentServise.ID == 0)
+                    BorisinAutoserviceEntities2.GetContext().Service.Add(_currentServise);
+                try
+                {
+                    BorisinAutoserviceEntities2.GetContext().SaveChanges();
+                    MessageBox.Show("Информация сохранена");
+                    Manager.MainFrame.GoBack();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show(ex.ToString());
-            }   
+                MessageBox.Show("Уже существует такая услуга");
+                if (_currentServise.ID == 0)
+                    BorisinAutoserviceEntities2.GetContext().Service.Add(_currentServise);
+                try
+                {
+                    BorisinAutoserviceEntities2.GetContext().SaveChanges();
+                    MessageBox.Show("Информация сохранена");
+                    Manager.MainFrame.GoBack();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+            }
         }
     }
 }
